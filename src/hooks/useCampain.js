@@ -13,12 +13,12 @@ const useCampaign = () => {
   const getCampaignCount = async () => {
     try {
       const getId = await crowdContract.id();
-      return ethers.formatUnits(getId);
+      return ethers.formatUnits(getId, 0);
     } catch (error) {
       console.log(error);
     }
   };
-  const InfoCampaign = async () => {
+  const InfoCampaign = async (count) => {
     try {
       const crowdMe = await crowdContract.crowd();
       return crowdMe;
@@ -28,8 +28,8 @@ const useCampaign = () => {
   };
 
   const getAll = () => {
-    Promise.all([getCampaignCount]).then((values) => {
-      console.log(values);
+    Promise.all([getCampaignCount()]).then((values) => {
+      InfoCampaign(values[0]);
     });
 
     Promise.all([InfoCampaign]).then((values) => {
